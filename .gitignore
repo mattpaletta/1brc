@@ -5,6 +5,10 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 release.properties
 
+build/
+.cache
+compile_commands.json
+
 # Eclipse
 .project
 .classpath

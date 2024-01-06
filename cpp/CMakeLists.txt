@@ -1,0 +1,17 @@
+macro(create_1brc_target NUMBER)
+    message(STATUS "Create 1brc${NUMBER}")
+    add_executable(1brc${NUMBER} CalculateAverage${NUMBER}.cpp)
+    target_compile_options(1brc${NUMBER} PRIVATE "${1BRC_EXTRA_FLAGS}")
+    target_compile_options(1brc${NUMBER} PRIVATE -Werror -Wextra -Wall -pedantic)
+
+    find_program(CLANG_TIDY clang-tidy)
+    if (NOT ${CLANG_TIDY} STREQUAL "CLANG_TIDY-NOTFOUND")
+        set(1BRC_CXX_CLANG_TIDY${NUMBER} "${CLANG_TIDY}")
+        set_target_properties(1brc${NUMBER} PROPERTIES CXX_CLANG_TIDY "${1BRC_CXX_CLANG_TIDY${NUMBER}};--fix;-p;${CMAKE_BINARY_DIR}")
+    endif()
+endmacro()
+
+create_1brc_target(0)
+create_1brc_target(1)
+create_1brc_target(2)
+create_1brc_target(3)
